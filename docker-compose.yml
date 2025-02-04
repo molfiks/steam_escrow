@@ -23,7 +23,7 @@ services:
 
 networks:
   spring-demo:
-    driver: bride
+    driver: bridge
 
 volumes:
   postgres:
