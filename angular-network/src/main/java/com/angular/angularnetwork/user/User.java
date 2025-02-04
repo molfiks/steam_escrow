@@ -1,6 +1,8 @@
 package com.angular.angularnetwork.user;
 
 
+import com.angular.angularnetwork.history.ProductTransactionHistory;
+import com.angular.angularnetwork.product.Product;
 import com.angular.angularnetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,6 +44,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "user")
+    private List<ProductTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
