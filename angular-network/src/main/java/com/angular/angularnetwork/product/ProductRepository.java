@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
     @Query("""
-            SELECT Product 
+            SELECT Product
             FROM Product product
-            WHERE product.archived=false 
+            WHERE product.archived=false
             AND product.shareable=true
             AND product.owner.id != :userId
             """)

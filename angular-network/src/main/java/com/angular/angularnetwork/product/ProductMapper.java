@@ -1,6 +1,8 @@
 package com.angular.angularnetwork.product;
 
 
+import com.angular.angularnetwork.file.FileUtils;
+import com.angular.angularnetwork.history.ProductTransactionHistory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,8 +29,20 @@ public class ProductMapper {
                 .archived(product.isArchived())
                 .shareable(product.isShareable())
                 .owner(product.getOwner().fullName())
-                // todo implement this later
-                // .cover()
+                .cover(FileUtils.readFileFromLocation(product.getCover()))
                 .build();
     }
+
+    public BoughtProductResponse toBoughtProductResponse(ProductTransactionHistory history) {
+        return BoughtProductResponse.builder()
+                .id(history.getProduct().getId())
+                .title(history.getProduct().getTitle())
+                .authorName(history.getProduct().getAuthor())
+                .ispn(history.getProduct().getIspn())
+                .rate(history.getProduct().getRate())
+                .returned(history.isReturned())
+                .returnApproved(history.isReturnApproved())
+                .build();
+    }
+
 }
