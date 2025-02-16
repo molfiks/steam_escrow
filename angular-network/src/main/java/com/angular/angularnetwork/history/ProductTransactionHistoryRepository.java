@@ -25,7 +25,7 @@ public interface ProductTransactionHistoryRepository extends JpaRepository<Produ
     Page<ProductTransactionHistory> findAllReturnedProducts(Pageable pageable, Integer userId);
 
     @Query("""
-            SELECT 
+            SELECT
             (COUNT(*)>0) AS isPurchased
             FROM ProductTransactionHistory productTransactionHistory
             WHERE productTransactionHistory.user.id = :userId
