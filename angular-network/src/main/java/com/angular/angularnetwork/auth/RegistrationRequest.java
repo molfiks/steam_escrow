@@ -20,11 +20,11 @@ public class RegistrationRequest {
     @NotBlank(message = "Lastname is mandatory")
     private String lastname;
     @Email(message = "Email is not formatted")
-    @NotEmpty(message = "Email name is mandatory")
-    @NotBlank(message = "Email name is mandatory")
+    @NotEmpty(message = "Email is mandatory")
+    @NotBlank(message = "Email is mandatory")
     private String email;
     @Size(min = 8, message = "Password should be 8 characters long minimum")
-    @NotEmpty(message = "Password name is mandatory")
-    @NotBlank(message = "Password name is mandatory")
+    @NotEmpty(message = "Password is mandatory")
+    @NotBlank(message = "Password is mandatory")
     private String password;
 }

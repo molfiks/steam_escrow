@@ -29,7 +29,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody @Valid AuthenticationRequest request
     ){
-        return ResponseEntity.ok(service.authenticade(request));
+        return ResponseEntity.ok(service.authenticate(request));
     }
 
 
