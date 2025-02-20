@@ -106,7 +106,8 @@ public class AuthenticationService {
         claims.put("fullName", user.fullName());
         var jwtToken = jwtService.generateToken(claims,user);
         return AuthenticationResponse.builder()
-                .token(jwtToken).build();
+                .token(jwtToken)
+                .build();
     }
     //@Transactional
     public void activateAccount(String token) throws MessagingException {

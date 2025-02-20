@@ -3,6 +3,7 @@ package com.angular.angularnetwork.email;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -15,8 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.*;
+import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class EmailService {
 
@@ -42,7 +45,7 @@ public class EmailService {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(
                 mimeMessage,
-                MimeMessageHelper.MULTIPART_MODE_MIXED,
+                MULTIPART_MODE_MIXED,
                 UTF_8.name()
         );
         Map<String, Object> properties = new HashMap<>();

@@ -234,7 +234,7 @@
           "202": {
             "description": "Accepted",
             "content": {
-              "*/*": {
+              "application/json": {
                 "schema": {
                   "type": "object"
                 }
