@@ -50,11 +50,11 @@ public class ProductService {
         User user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Product> products = productRepository.findAllDisplayableProducts(pageable, user.getId());
-        List<ProductResponse> productResponse = products.stream()
+        List<ProductResponse> productsResponse = products.stream()
                 .map(productMapper::toProductResponse)
                 .toList();
         return new PageResponse<>(
-                productResponse,
+                productsResponse,
                 products.getNumber(),
                 products.getSize(),
                 products.getTotalElements(),

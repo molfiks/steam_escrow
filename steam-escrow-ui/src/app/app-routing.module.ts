@@ -16,6 +16,10 @@ const routes: Routes = [
   {
     path: 'activate-account',
     component: ActivateAccountComponent
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./modules/product/product.module').then(m=>m.ProductModule)
   }
 ];
 
