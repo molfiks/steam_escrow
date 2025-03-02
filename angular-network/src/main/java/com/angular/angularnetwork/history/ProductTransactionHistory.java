@@ -27,6 +27,7 @@ public class ProductTransactionHistory extends BaseEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    private boolean returned;
-    private boolean returnApproved;
+    private boolean returned; // muhtemelen silinecek
+    private boolean returnApproved;  // muhtemelen silinecek
+    // private boolean purchaseApproved;   eklenecek (authenticated user onayı)
 }

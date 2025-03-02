@@ -1,19 +1,19 @@
-<h3>Products list</h3>
-<div
-  *ngIf="message"
-  class="alert"
-  [class.alert-danger]="level==='error'"
-  [class.alert-success]="level==='success'"
+<h3>My products list</h3>
 
->
-  {{message}}
-</div>
 <hr>
+<div class="d-flex justify-content-end mb-3">
+  <a routerLink="/products/manage" class="btn btn-outline-primary">
+    <i class="fas fa-plus"></i>&nbsp;New product
+  </a>
+</div>
 <div class="d-flex justify-content-start gap-2 flex-wrap">
   <app-product-card
     *ngFor="let product of productResponse.content"
     [product]="product"
-    (purchase)="purchaseProduct($event)"
+    [manage]="true"
+    (archive)="archiveProduct($event)"
+    (share)="shareProduct($event)"
+    (edit)="editProduct($event)"
   ></app-product-card>
 </div>
 

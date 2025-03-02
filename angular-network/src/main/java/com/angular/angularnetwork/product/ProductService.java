@@ -160,6 +160,9 @@ public class ProductService {
         if(isAlreadyPurchased) {
             throw new OperationNotPermittedException("The requested product is already purchased");
         }
+        // bu kısım purchaseApproved diye ayrı bir kısımda yapılacak
+        // user.setBalance = user.getBalance - product.getPrice
+        // product.getOwner().setBalance += product.getPrice
         ProductTransactionHistory productTransactionHistory = ProductTransactionHistory.builder()
                 .user(user)
                 .product(product)

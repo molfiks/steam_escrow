@@ -1,22 +1,21 @@
 import {Component, OnInit} from '@angular/core';
+import {PageResponseProductResponse} from '../../../../services/models/page-response-product-response';
 import {ProductService} from '../../../../services/services/product.service';
 import {Router} from '@angular/router';
-import {PageResponseProductResponse} from '../../../../services/models/page-response-product-response';
-import { ProductResponse } from '../../../../services/models/product-response';
+import {ProductResponse} from '../../../../services/models/product-response';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-my-products',
   standalone: false,
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  templateUrl: './my-products.component.html',
+  styleUrl: './my-products.component.scss'
 })
-export class ProductListComponent implements OnInit{
+export class MyProductsComponent implements OnInit{
 
   productResponse: PageResponseProductResponse = {};
   page= 0;
   size= 5;
-  message = '';
-  level = 'success'
+
 
   constructor(
     private productService: ProductService,
@@ -26,10 +25,10 @@ export class ProductListComponent implements OnInit{
 
   ngOnInit(): void {
     this.findAllProducts();
-    }
+  }
 
   private findAllProducts() {
-    this.productService.findAllProducts({
+    this.productService.findAllProductsByOwner({
       page: this.page,
       size: this.size
     }).subscribe({
@@ -68,20 +67,21 @@ export class ProductListComponent implements OnInit{
     return this.page == this.productResponse.totalPages as number -1;
   }
 
-  purchaseProduct(product: ProductResponse) {
-    this.message = '';
-    this.productService.purchaseProduct({
+  archiveProduct(product: ProductResponse) {
+
+  }
+
+  shareProduct(product: ProductResponse) {
+    this.productService.updateShareableStatus({
       'product-id': product.id as number
     }).subscribe({
       next: () => {
-        this.level = 'success'
-        this.message = 'Product Successfully added'
-      },
-      error: (err) => {
-        console.log(err);
-        this.level='error';
-        this.message=err.error.error
+        product.shareable = !product.shareable
       }
     })
+  }
+
+  editProduct(product: ProductResponse) {
+    this.router.navigate(['products','manage',product.id])
   }
 }

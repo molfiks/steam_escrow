@@ -23,12 +23,13 @@ public class Product extends BaseEntity {
 
 
     private String title;
-    private String author;
-    private String ispn;
+    private String author; // silinecek
+    private String ispn;   // silinecek
     private String description;
     private String cover;
     private boolean archived;
     private boolean shareable;
+    // private float price;   eklenecek
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
