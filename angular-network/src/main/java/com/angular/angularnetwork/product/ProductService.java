@@ -172,6 +172,34 @@ public class ProductService {
         return transactionHistoryRepository.save(productTransactionHistory).getId();
     }
 
+    public Integer approvePurchaseProduct(Integer productId, Authentication connectedUser) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("No product found with the ID:: "+productId));
+
+        User buyer = ((User) connectedUser.getPrincipal());
+
+        ProductTransactionHistory productTransactionHistory = transactionHistoryRepository.findByProductIdAndUserId(productId,buyer.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No product transaction found with the ID:: "+productId));
+
+        if(productTransactionHistory.isPurchaseApproved()){
+            throw new OperationNotPermittedException("This purchase is already approved");
+        }
+
+        User seller = product.getOwner();
+
+        if(buyer.getBalance() < product.getPrice()){
+            throw new OperationNotPermittedException("You have insufficient balance to complete this transaction");
+        }
+
+        buyer.setBalance(buyer.getBalance() - product.getPrice());
+        seller.setBalance(seller.getBalance() + product.getPrice());
+
+        productTransactionHistory.setPurchaseApproved(true);
+
+
+        return transactionHistoryRepository.save(productTransactionHistory).getId();
+    }
+
     public Integer returnPurchasedProduct(Integer productId, Authentication connectedUser) {
 
         Product product = productRepository.findById(productId)
@@ -225,4 +253,5 @@ public class ProductService {
         product.setCover(productCover);
         productRepository.save(product);
     }
+
 }

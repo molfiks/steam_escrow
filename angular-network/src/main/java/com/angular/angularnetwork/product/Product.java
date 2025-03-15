@@ -29,7 +29,7 @@ public class Product extends BaseEntity {
     private String cover;
     private boolean archived;
     private boolean shareable;
-    // private float price;   eklenecek
+    private float price;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")

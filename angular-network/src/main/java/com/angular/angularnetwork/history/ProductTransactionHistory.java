@@ -29,5 +29,5 @@ public class ProductTransactionHistory extends BaseEntity {
 
     private boolean returned; // muhtemelen silinecek
     private boolean returnApproved;  // muhtemelen silinecek
-    // private boolean purchaseApproved;   eklenecek (authenticated user onayı)
+    private boolean purchaseApproved;
 }

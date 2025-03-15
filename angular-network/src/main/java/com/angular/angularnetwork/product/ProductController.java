@@ -96,6 +96,14 @@ public class ProductController {
         return ResponseEntity.ok(service.purchaseProduct(productId, connectedUser));
     }
 
+    @PatchMapping("/purchase/approve/{product-id}")
+    public ResponseEntity<Integer> approvePurchaseProduct(
+            @PathVariable("product-id") Integer productId,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.approvePurchaseProduct(productId, connectedUser));
+    }
+
     @PatchMapping("/purchase/return/{product-id}")
     public ResponseEntity<Integer> returnPurchaseProduct(
             @PathVariable("product-id") Integer productId,
