@@ -12,8 +12,6 @@ public class ProductResponse {
 
     private Integer id;
     private String title;
-    private String authorName;
-    private String ispn;
     private String description;
     private String owner;
     private byte[] cover;

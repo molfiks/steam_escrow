@@ -10,12 +10,6 @@ public record ProductRequest(
         String title,
         @NotNull(message = "101")
         @NotEmpty(message = "101")
-        String authorName,
-        @NotNull(message = "102")
-        @NotEmpty(message = "102")
-        String ispn,
-        @NotNull(message = "103")
-        @NotEmpty(message = "103")
         String description,
         boolean shareable
 ) {

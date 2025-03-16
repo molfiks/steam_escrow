@@ -68,7 +68,13 @@ export class MyProductsComponent implements OnInit{
   }
 
   archiveProduct(product: ProductResponse) {
-
+    this.productService.updateArchivedStatus({
+      'product-id': product.id as number
+    }).subscribe({
+      next: () => {
+        product.archived = !product.archived;
+      }
+    });
   }
 
   shareProduct(product: ProductResponse) {

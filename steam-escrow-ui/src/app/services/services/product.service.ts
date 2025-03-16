@@ -11,6 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { approvePurchaseProduct } from '../fn/product/approve-purchase-product';
+import { ApprovePurchaseProduct$Params } from '../fn/product/approve-purchase-product';
 import { approveReturnPurchaseProduct } from '../fn/product/approve-return-purchase-product';
 import { ApproveReturnPurchaseProduct$Params } from '../fn/product/approve-return-purchase-product';
 import { findAllBoughtProducts } from '../fn/product/find-all-bought-products';
@@ -220,6 +222,31 @@ export class ProductService extends BaseService {
    */
   approveReturnPurchaseProduct(params: ApproveReturnPurchaseProduct$Params, context?: HttpContext): Observable<number> {
     return this.approveReturnPurchaseProduct$Response(params, context).pipe(
+      map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `approvePurchaseProduct()` */
+  static readonly ApprovePurchaseProductPath = '/products/purchase/approve/{product-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `approvePurchaseProduct()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  approvePurchaseProduct$Response(params: ApprovePurchaseProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+    return approvePurchaseProduct(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `approvePurchaseProduct$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  approvePurchaseProduct(params: ApprovePurchaseProduct$Params, context?: HttpContext): Observable<number> {
+    return this.approvePurchaseProduct$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

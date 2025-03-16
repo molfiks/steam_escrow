@@ -160,9 +160,7 @@ public class ProductService {
         if(isAlreadyPurchased) {
             throw new OperationNotPermittedException("The requested product is already purchased");
         }
-        // bu kısım purchaseApproved diye ayrı bir kısımda yapılacak
-        // user.setBalance = user.getBalance - product.getPrice
-        // product.getOwner().setBalance += product.getPrice
+
         ProductTransactionHistory productTransactionHistory = ProductTransactionHistory.builder()
                 .user(user)
                 .product(product)
@@ -199,6 +197,7 @@ public class ProductService {
 
         return transactionHistoryRepository.save(productTransactionHistory).getId();
     }
+/*  *** İLERİDE BAKILABİLİR ŞİMDİLİK GEREK YOK ***
 
     public Integer returnPurchasedProduct(Integer productId, Authentication connectedUser) {
 
@@ -243,6 +242,8 @@ public class ProductService {
 
         return transactionHistoryRepository.save(productTransactionHistory).getId();
     }
+
+*/
 
     public void uploadProductCoverPicture(MultipartFile file, Authentication connectedUser, Integer productId) {
         Product product = productRepository.findById(productId)

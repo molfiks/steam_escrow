@@ -234,7 +234,7 @@
           "202": {
             "description": "Accepted",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
                   "type": "object"
                 }
@@ -264,7 +264,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthenticationResponse"
                 }
@@ -344,6 +344,38 @@
           "product"
         ],
         "operationId": "approveReturnPurchaseProduct",
+        "parameters": [
+          {
+            "name": "product-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/purchase/approve/{product-id}": {
+      "patch": {
+        "tags": [
+          "product"
+        ],
+        "operationId": "approvePurchaseProduct",
         "parameters": [
           {
             "name": "product-id",

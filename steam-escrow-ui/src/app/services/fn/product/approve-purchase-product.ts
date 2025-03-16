@@ -8,16 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackRequest } from '../../models/feedback-request';
 
-export interface SaveFeedback$Params {
-      body: FeedbackRequest
+export interface ApprovePurchaseProduct$Params {
+  'product-id': number;
 }
 
-export function saveFeedback(http: HttpClient, rootUrl: string, params: SaveFeedback$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-  const rb = new RequestBuilder(rootUrl, saveFeedback.PATH, 'post');
+export function approvePurchaseProduct(http: HttpClient, rootUrl: string, params: ApprovePurchaseProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, approvePurchaseProduct.PATH, 'patch');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.path('product-id', params['product-id'], {});
   }
 
   return http.request(
@@ -30,4 +29,4 @@ export function saveFeedback(http: HttpClient, rootUrl: string, params: SaveFeed
   );
 }
 
-saveFeedback.PATH = '/feedbacks';
+approvePurchaseProduct.PATH = '/products/purchase/approve/{product-id}';

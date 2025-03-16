@@ -23,8 +23,6 @@ public class Product extends BaseEntity {
 
 
     private String title;
-    private String author; // silinecek
-    private String ispn;   // silinecek
     private String description;
     private String cover;
     private boolean archived;

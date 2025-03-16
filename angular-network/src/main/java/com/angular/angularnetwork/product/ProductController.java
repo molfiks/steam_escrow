@@ -104,6 +104,9 @@ public class ProductController {
         return ResponseEntity.ok(service.approvePurchaseProduct(productId, connectedUser));
     }
 
+
+/*  *** İLERİDE BAKILABİLİR ŞİMDİLİK GEREK YOK ***
+
     @PatchMapping("/purchase/return/{product-id}")
     public ResponseEntity<Integer> returnPurchaseProduct(
             @PathVariable("product-id") Integer productId,
@@ -120,6 +123,8 @@ public class ProductController {
     ){
         return ResponseEntity.ok(service.approveReturnPurchasedProduct(productId, connectedUser));
     }
+
+*/
 
     @PostMapping(value = "/cover/{product-id}",consumes = "multipart/form-data")
     public ResponseEntity<?> uploadProductCoverPicture(

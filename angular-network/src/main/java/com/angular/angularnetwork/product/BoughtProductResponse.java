@@ -9,11 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class BoughtProductResponse {
-
+// burada bought productta purchase approve eklenecek controllerler kontrol edilecek service düzenlenecek
     private Integer id;
     private String title;
-    private String authorName;
-    private String ispn;
     private double rate;
     private boolean returned;
     private boolean returnApproved;
