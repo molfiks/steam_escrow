@@ -12,7 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
             FROM Product product
             WHERE product.archived=false
             AND product.shareable=true
-            AND product.owner.id != :userId
+            AND product.bought=false
             """)
     Page<Product> findAllDisplayableProducts(Pageable pageable, Integer userId);
 }

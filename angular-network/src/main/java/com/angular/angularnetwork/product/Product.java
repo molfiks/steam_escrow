@@ -28,10 +28,15 @@ public class Product extends BaseEntity {
     private boolean archived;
     private boolean shareable;
     private float price;
+    private boolean bought;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "bought_by_id")
+    private User boughtBy;
 
     @OneToMany(mappedBy = "product")
     private List<Feedback> feedbacks;

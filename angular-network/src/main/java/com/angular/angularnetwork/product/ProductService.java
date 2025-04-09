@@ -153,7 +153,7 @@ public class ProductService {
             throw new OperationNotPermittedException("The requested product can not be purchased since it is archived or not shareable");
         }
         User user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(product.getOwner().getId(), user.getId())) {
+        if(Objects.equals(product.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You can not buy your own product");
         }
         final boolean isAlreadyPurchased = transactionHistoryRepository.isAlreadyPurchasedByUser(productId, user.getId());
@@ -191,6 +191,11 @@ public class ProductService {
 
         buyer.setBalance(buyer.getBalance() - product.getPrice());
         seller.setBalance(seller.getBalance() + product.getPrice());
+
+        // Mark the product as bought and set the buyer
+        product.setBought(true);
+        product.setBoughtBy(buyer);
+        productRepository.save(product);
 
         productTransactionHistory.setPurchaseApproved(true);
 
