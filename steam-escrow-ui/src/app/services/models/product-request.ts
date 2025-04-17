@@ -6,7 +6,6 @@ export interface ProductRequest {
   authorName: string;
   description: string;
   id?: number;
-  ispn: string;
   shareable?: boolean;
   title: string;
 }

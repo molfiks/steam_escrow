@@ -14,7 +14,7 @@ export class ManageProductComponent implements OnInit{
   errorMsg: Array<string> = [];
   selectedCover: any;
   selectedPicture: string | undefined;
-  productRequest: ProductRequest = {authorName: "", description: "", ispn: "", title: ""};
+  productRequest: ProductRequest = {authorName: "", description: "", title: ""};
 
   constructor(
     private productService: ProductService,
@@ -34,7 +34,6 @@ export class ManageProductComponent implements OnInit{
             id: product.id,
             title: product.title as string,
             authorName: product.authorName as string,
-            ispn: product.ispn as string,
             description: product.description as string,
             shareable: product.shareable
           }

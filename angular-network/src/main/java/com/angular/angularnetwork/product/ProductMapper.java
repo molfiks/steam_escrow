@@ -27,6 +27,8 @@ public class ProductMapper {
                 .shareable(product.isShareable())
                 .owner(product.getOwner().fullName())
                 .cover(FileUtils.readFileFromLocation(product.getCover()))
+                .bought(product.isBought())
+                .boughtBy(product.getBoughtBy() != null ? product.getBoughtBy().fullName() : null)
                 .build();
     }
 

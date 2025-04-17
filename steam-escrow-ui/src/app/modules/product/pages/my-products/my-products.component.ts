@@ -68,6 +68,10 @@ export class MyProductsComponent implements OnInit{
   }
 
   archiveProduct(product: ProductResponse) {
+    if (product.bought) {
+      alert('Cannot archive a product that has been purchased');
+      return;
+    }
     this.productService.updateArchivedStatus({
       'product-id': product.id as number
     }).subscribe({
@@ -78,6 +82,10 @@ export class MyProductsComponent implements OnInit{
   }
 
   shareProduct(product: ProductResponse) {
+    if (product.bought) {
+      alert('Cannot change sharing status of a product that has been purchased');
+      return;
+    }
     this.productService.updateShareableStatus({
       'product-id': product.id as number
     }).subscribe({
@@ -88,6 +96,10 @@ export class MyProductsComponent implements OnInit{
   }
 
   editProduct(product: ProductResponse) {
+    if (product.bought) {
+      alert('Cannot edit a product that has been purchased');
+      return;
+    }
     this.router.navigate(['products','manage',product.id])
   }
 }

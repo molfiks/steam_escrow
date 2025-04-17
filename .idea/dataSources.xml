@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="deneme_network@localhost" uuid="6f92645b-7413-4245-af23-87e9b157a870">
+    <data-source source="LOCAL" name="deneme_network@localhost" uuid="dcae59c1-de1f-44fd-8ef6-e478b9259076">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/angular-network/src/main/resources/application-dev.yml</remarks>
+      <schema-control>MANUAL</schema-control>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/deneme_network</jdbc-url>
       <jdbc-additional-properties>

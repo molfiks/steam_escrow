@@ -129,6 +129,9 @@ public class ProductService {
         if(!Objects.equals(product.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You can not update others products shareable status");
         }
+        if(product.isBought()) {
+            throw new OperationNotPermittedException("You cannot update shareable status of a product that has been purchased");
+        }
         product.setShareable(!product.isShareable());
         productRepository.save(product);
         return productId;

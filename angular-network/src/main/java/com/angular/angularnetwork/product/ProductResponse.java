@@ -18,4 +18,6 @@ public class ProductResponse {
     private double rate;
     private boolean archived;
     private boolean shareable;
+    private boolean bought;
+    private String boughtBy;
 }

@@ -8,9 +8,10 @@ export interface ProductResponse {
   cover?: string;
   description?: string;
   id?: number;
-  ispn?: string;
   owner?: string;
   rate?: number;
   shareable?: boolean;
   title?: string;
+  bought?: boolean;
+  boughtBy?: string;
 }
