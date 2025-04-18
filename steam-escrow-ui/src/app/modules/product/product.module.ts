@@ -10,6 +10,7 @@ import { RatingComponent } from './components/rating/rating.component';
 import { MyProductsComponent } from './pages/my-products/my-products.component';
 import { ManageProductComponent } from './pages/manage-product/manage-product.component';
 import {FormsModule} from '@angular/forms';
+import { PurchasedProductsListComponent } from './pages/purchased-products-list/purchased-products-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FormsModule} from '@angular/forms';
     ProductCardComponent,
     RatingComponent,
     MyProductsComponent,
-    ManageProductComponent
+    ManageProductComponent,
+    PurchasedProductsListComponent
   ],
   imports: [
     CommonModule,

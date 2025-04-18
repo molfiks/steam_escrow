@@ -1,0 +1,26 @@
+<h2>My Purchased Products</h2>
+<hr>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Seller</th>
+        <th scope="col">Rate</th>
+        <th scope="col"><i class="fas fa-cogs"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let product of purchasedProducts.content; let index = index">
+    <th scope="row">{{index + 1}}</th>
+      <td>{{product.title}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.}}</td>
+      <td>{{product.title}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

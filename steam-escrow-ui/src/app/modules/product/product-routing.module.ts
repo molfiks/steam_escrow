@@ -4,6 +4,7 @@ import {MainComponent} from './pages/main/main.component';
 import {ProductListComponent} from './pages/product-list/product-list.component';
 import {MyProductsComponent} from './pages/my-products/my-products.component';
 import {ManageProductComponent} from './pages/manage-product/manage-product.component';
+import {PurchasedProductsListComponent} from './pages/purchased-products-list/purchased-products-list.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'manage/:productId',
         component: ManageProductComponent
+      },
+      {
+        path: 'my-purchased-products',
+        component: PurchasedProductsListComponent
       }
     ]
   }

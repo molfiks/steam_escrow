@@ -6,7 +6,6 @@
       <synchronize>true</synchronize>
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/angular-network/src/main/resources/application-dev.yml</remarks>
-      <schema-control>MANUAL</schema-control>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/deneme_network</jdbc-url>
       <jdbc-additional-properties>

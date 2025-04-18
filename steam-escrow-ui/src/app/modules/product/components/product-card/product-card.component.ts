@@ -35,7 +35,7 @@ export class ProductCardComponent {
 
   get productCover(): string | undefined {
     if(this._product.cover){
-      return 'data/image/jpg;base64, ' + this._product.cover;
+      return 'data:image/jpg;base64,' + this._product.cover;
     }
     return '';
   }
