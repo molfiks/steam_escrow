@@ -14,7 +14,7 @@ export class ManageProductComponent implements OnInit{
   errorMsg: Array<string> = [];
   selectedCover: any;
   selectedPicture: string | undefined;
-  productRequest: ProductRequest = {authorName: "", description: "", title: ""};
+  productRequest: ProductRequest = {price: 0, description: "", title: ""};
 
   constructor(
     private productService: ProductService,
@@ -33,9 +33,9 @@ export class ManageProductComponent implements OnInit{
           this.productRequest = {
             id: product.id,
             title: product.title as string,
-            authorName: product.authorName as string,
             description: product.description as string,
-            shareable: product.shareable
+            shareable: product.shareable,
+            price: product.price
           }
           if(product.cover){
             this.selectedPicture = 'data:image/jpg;base64,' + product.cover;
@@ -57,6 +57,7 @@ export class ManageProductComponent implements OnInit{
     }
   }
 
+  // anasını amısını skm file neden yok diyor savelerken
   saveProduct() {
     this.productService.saveProduct({
       body: this.productRequest

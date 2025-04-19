@@ -14,6 +14,7 @@ public class ProductResponse {
     private String title;
     private String description;
     private String owner;
+    private float price;
     private byte[] cover;
     private double rate;
     private boolean archived;

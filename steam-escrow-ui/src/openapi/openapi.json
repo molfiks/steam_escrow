@@ -306,70 +306,6 @@
         }
       }
     },
-    "/products/purchase/return/{product-id}": {
-      "patch": {
-        "tags": [
-          "product"
-        ],
-        "operationId": "returnPurchaseProduct",
-        "parameters": [
-          {
-            "name": "product-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/products/purchase/return/approve/{product-id}": {
-      "patch": {
-        "tags": [
-          "product"
-        ],
-        "operationId": "approveReturnPurchaseProduct",
-        "parameters": [
-          {
-            "name": "product-id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/products/purchase/approve/{product-id}": {
       "patch": {
         "tags": [
@@ -678,12 +614,6 @@
           "title": {
             "type": "string"
           },
-          "authorName": {
-            "type": "string"
-          },
-          "ispn": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },
@@ -692,9 +622,7 @@
           }
         },
         "required": [
-          "authorName",
           "description",
-          "ispn",
           "title"
         ]
       },
@@ -813,12 +741,6 @@
           "title": {
             "type": "string"
           },
-          "authorName": {
-            "type": "string"
-          },
-          "ispn": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },
@@ -838,6 +760,12 @@
           },
           "shareable": {
             "type": "boolean"
+          },
+          "bought": {
+            "type": "boolean"
+          },
+          "boughtBy": {
+            "type": "string"
           }
         }
       },
@@ -849,12 +777,6 @@
             "format": "int32"
           },
           "title": {
-            "type": "string"
-          },
-          "authorName": {
-            "type": "string"
-          },
-          "ispn": {
             "type": "string"
           },
           "rate": {

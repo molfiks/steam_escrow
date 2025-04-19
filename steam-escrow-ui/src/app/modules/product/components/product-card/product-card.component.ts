@@ -48,6 +48,7 @@ export class ProductCardComponent {
   @Output() private details: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
 
 
+
   onShowDetails() {
     this.details.emit(this._product);
   }

@@ -13,8 +13,6 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { approvePurchaseProduct } from '../fn/product/approve-purchase-product';
 import { ApprovePurchaseProduct$Params } from '../fn/product/approve-purchase-product';
-import { approveReturnPurchaseProduct } from '../fn/product/approve-return-purchase-product';
-import { ApproveReturnPurchaseProduct$Params } from '../fn/product/approve-return-purchase-product';
 import { findAllBoughtProducts } from '../fn/product/find-all-bought-products';
 import { FindAllBoughtProducts$Params } from '../fn/product/find-all-bought-products';
 import { findAllProducts } from '../fn/product/find-all-products';
@@ -30,8 +28,6 @@ import { PageResponseProductResponse } from '../models/page-response-product-res
 import { ProductResponse } from '../models/product-response';
 import { purchaseProduct } from '../fn/product/purchase-product';
 import { PurchaseProduct$Params } from '../fn/product/purchase-product';
-import { returnPurchaseProduct } from '../fn/product/return-purchase-product';
-import { ReturnPurchaseProduct$Params } from '../fn/product/return-purchase-product';
 import { saveProduct } from '../fn/product/save-product';
 import { SaveProduct$Params } from '../fn/product/save-product';
 import { updateArchivedStatus } from '../fn/product/update-archived-status';
@@ -172,56 +168,6 @@ export class ProductService extends BaseService {
    */
   updateShareableStatus(params: UpdateShareableStatus$Params, context?: HttpContext): Observable<number> {
     return this.updateShareableStatus$Response(params, context).pipe(
-      map((r: StrictHttpResponse<number>): number => r.body)
-    );
-  }
-
-  /** Path part for operation `returnPurchaseProduct()` */
-  static readonly ReturnPurchaseProductPath = '/products/purchase/return/{product-id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `returnPurchaseProduct()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  returnPurchaseProduct$Response(params: ReturnPurchaseProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return returnPurchaseProduct(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `returnPurchaseProduct$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  returnPurchaseProduct(params: ReturnPurchaseProduct$Params, context?: HttpContext): Observable<number> {
-    return this.returnPurchaseProduct$Response(params, context).pipe(
-      map((r: StrictHttpResponse<number>): number => r.body)
-    );
-  }
-
-  /** Path part for operation `approveReturnPurchaseProduct()` */
-  static readonly ApproveReturnPurchaseProductPath = '/products/purchase/return/approve/{product-id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `approveReturnPurchaseProduct()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  approveReturnPurchaseProduct$Response(params: ApproveReturnPurchaseProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
-    return approveReturnPurchaseProduct(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `approveReturnPurchaseProduct$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  approveReturnPurchaseProduct(params: ApproveReturnPurchaseProduct$Params, context?: HttpContext): Observable<number> {
-    return this.approveReturnPurchaseProduct$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );
   }

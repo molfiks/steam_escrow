@@ -14,6 +14,7 @@ public class ProductMapper {
                 .description(request.description())
                 .archived(false)
                 .shareable(request.shareable())
+                .price(request.price())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class ProductMapper {
                 .archived(product.isArchived())
                 .shareable(product.isShareable())
                 .owner(product.getOwner().fullName())
+                .price(product.getPrice())
                 .cover(FileUtils.readFileFromLocation(product.getCover()))
                 .bought(product.isBought())
                 .boughtBy(product.getBoughtBy() != null ? product.getBoughtBy().fullName() : null)
@@ -36,7 +38,10 @@ public class ProductMapper {
         return BoughtProductResponse.builder()
                 .id(history.getProduct().getId())
                 .title(history.getProduct().getTitle())
+                .sellerName(history.getUser().fullName())
+                .price(history.getProduct().getPrice())
                 .rate(history.getProduct().getRate())
+                .purchaseApproved(history.isPurchaseApproved())
                 .returned(history.isReturned())
                 .returnApproved(history.isReturnApproved())
                 .build();

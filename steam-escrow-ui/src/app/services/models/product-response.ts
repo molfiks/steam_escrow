@@ -4,7 +4,8 @@
 
 export interface ProductResponse {
   archived?: boolean;
-  authorName?: string;
+  bought?: boolean;
+  boughtBy?: string;
   cover?: string;
   description?: string;
   id?: number;
@@ -12,6 +13,5 @@ export interface ProductResponse {
   rate?: number;
   shareable?: boolean;
   title?: string;
-  bought?: boolean;
-  boughtBy?: string;
+  price?: number;
 }

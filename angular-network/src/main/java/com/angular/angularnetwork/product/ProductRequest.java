@@ -11,6 +11,8 @@ public record ProductRequest(
         @NotNull(message = "101")
         @NotEmpty(message = "101")
         String description,
-        boolean shareable
+        boolean shareable,
+        @NotNull(message ="102")
+        float price
 ) {
 }
