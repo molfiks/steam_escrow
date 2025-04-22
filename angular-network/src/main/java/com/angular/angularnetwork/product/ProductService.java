@@ -7,6 +7,7 @@ import com.angular.angularnetwork.file.FileStorageService;
 import com.angular.angularnetwork.history.ProductTransactionHistory;
 import com.angular.angularnetwork.history.ProductTransactionHistoryRepository;
 import com.angular.angularnetwork.user.User;
+import com.angular.angularnetwork.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,7 @@ public class ProductService {
     private final ProductTransactionHistoryRepository transactionHistoryRepository;
     private final ProductMapper productMapper;
     private final FileStorageService fileStorageService;
+    private final UserRepository userRepository;
 
     public Integer save(ProductRequest request, Authentication connectedUser) {
 
@@ -194,9 +196,9 @@ public class ProductService {
 
         buyer.setBalance(buyer.getBalance() - product.getPrice());
         seller.setBalance(seller.getBalance() + product.getPrice());
-
+        userRepository.save(buyer);
         // Mark the product as bought and set the buyer
-        //denedim çalışıyo dokunma yippie
+        //denedim çalışıyo dokunma yippie(yamuk çalışıyomuş satın alanın para eksilmedi amk)
         product.setBought(true);
         product.setBoughtBy(buyer);
         productRepository.save(product);

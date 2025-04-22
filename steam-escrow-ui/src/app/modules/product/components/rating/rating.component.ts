@@ -20,6 +20,6 @@ export class RatingComponent {
   }
 
   get emptyStar(): number {
-    return this.maxRating = Math.ceil(this.rating)
+    return this.maxRating - Math.ceil(this.rating)
   }
 }

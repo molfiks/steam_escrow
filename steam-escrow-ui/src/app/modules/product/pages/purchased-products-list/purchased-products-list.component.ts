@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BoughtProductResponse} from '../../../../services/models/bought-product-response';
 import {PageResponseBoughtProductResponse} from '../../../../services/models/page-response-bought-product-response';
 import {ProductService} from '../../../../services/services/product.service';
+import {FeedbackRequest} from '../../../../services/models/feedback-request';
+import {FeedbackService} from '../../../../services/services/feedback.service';
 
 @Component({
   selector: 'app-purchased-products-list',
@@ -11,13 +13,15 @@ import {ProductService} from '../../../../services/services/product.service';
 })
 export class PurchasedProductsListComponent implements OnInit{
   purchasedProducts: PageResponseBoughtProductResponse = {};
+  feedbackRequest: FeedbackRequest = {comment: "", productId: 0, note: 0};
 
   page=0;
   size = 5;
-  selectedProduct: BoughtProductResponse = {};
+  selectedProduct: BoughtProductResponse | undefined= undefined;
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private feedbackService : FeedbackService
   ) {
   }
 
@@ -26,8 +30,9 @@ export class PurchasedProductsListComponent implements OnInit{
   }
 
 
-  returnPurchasedProduct(product: BoughtProductResponse) {
+  approvePurchasedProduct(product: BoughtProductResponse) {
     this.selectedProduct = product;
+    this.feedbackRequest.productId = product.id as number;
   }
 
   private findAllPurchasedProducts() {
@@ -68,5 +73,27 @@ export class PurchasedProductsListComponent implements OnInit{
 
   get isLastPage(): boolean {
     return this.page == this.purchasedProducts.totalPages as number -1;
+  }
+
+  approvePurchase(withFeedback: boolean) {
+    this.productService.approvePurchaseProduct({
+      'product-id': this.selectedProduct?.id as number
+    }).subscribe({
+      next: () => {
+        if(withFeedback){
+          this.giveFeedback();
+        }
+        this.selectedProduct = undefined;
+        this.findAllPurchasedProducts()
+      }
+    });
+  }
+
+  private giveFeedback() {
+    this.feedbackService.saveFeedback({
+      body: this.feedbackRequest
+    }).subscribe({
+      next: () => {}
+    });
   }
 }

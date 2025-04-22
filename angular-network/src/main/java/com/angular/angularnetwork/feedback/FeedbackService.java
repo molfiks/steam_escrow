@@ -33,7 +33,7 @@ public class FeedbackService {
         }
 
         User user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(product.getOwner().getId(), user.getId())) {
+        if(Objects.equals(product.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You can not give a feedback for your own product");
         }
         Feedback feedback = feedbackMapper.toFeedback(request);
