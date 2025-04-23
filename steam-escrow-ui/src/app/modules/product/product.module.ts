@@ -11,6 +11,7 @@ import { MyProductsComponent } from './pages/my-products/my-products.component';
 import { ManageProductComponent } from './pages/manage-product/manage-product.component';
 import {FormsModule} from '@angular/forms';
 import { PurchasedProductsListComponent } from './pages/purchased-products-list/purchased-products-list.component';
+import { MySoldProductsComponent } from './pages/my-sold-products/my-sold-products.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PurchasedProductsListComponent } from './pages/purchased-products-list/
     RatingComponent,
     MyProductsComponent,
     ManageProductComponent,
-    PurchasedProductsListComponent
+    PurchasedProductsListComponent,
+    MySoldProductsComponent
   ],
   imports: [
     CommonModule,

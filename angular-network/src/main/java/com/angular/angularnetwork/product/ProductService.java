@@ -124,6 +124,26 @@ public class ProductService {
         );
     }
 
+    public PageResponse<BoughtProductResponse> findAllSoldProducts(int page, int size, Authentication connectedUser) {
+
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<ProductTransactionHistory> allSoldProducts = transactionHistoryRepository.findAllSoldProducts(pageable, user.getId());
+        List<BoughtProductResponse> productResponse = allSoldProducts.stream()
+                .map(productMapper::toBoughtProductResponse)
+                .toList();
+        return new PageResponse<>(
+                productResponse,
+                allSoldProducts.getNumber(),
+                allSoldProducts.getSize(),
+                allSoldProducts.getTotalElements(),
+                allSoldProducts.getTotalPages(),
+                allSoldProducts.isFirst(),
+                allSoldProducts.isLast()
+        );
+    }
+
+
     public Integer updateShareableStatus(Integer productId, Authentication connectedUser) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("No product found with the ID:: "+productId));

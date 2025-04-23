@@ -1,4 +1,4 @@
-<h2>My Purchased Products</h2>
+<h3>My Purchased Products</h3>
 <hr>
 <div class="d-flex flex-column col-6" *ngIf="selectedProduct">
   <h2>Return and share feedback</h2>
@@ -76,8 +76,8 @@
       <td><i class="fas fa-star text-warning"></i>{{product.rate}}</td>
       <td>
         <div class="d-flex gap-2">
-          <i *ngIf="product.returned" class="cursor-pointer fa-regular fa-paper-plane text-primary"></i>
-          <i *ngIf="!product.returned" (click)="approvePurchasedProduct(product)" class="cursor-pointer fa-solid fa-paper-plane text-success"></i>
+          <i *ngIf="product.purchaseApproved" class="fa-regular fa-paper-plane text-primary"></i>
+          <i *ngIf="!product.purchaseApproved" (click)="approvePurchasedProduct(product)" class="cursor-pointer fa-solid fa-paper-plane text-success"></i>
           <i class="cursor-pointer fa-solid fa-circle-check" [class.text-success]="product.returnApproved"></i>
         </div>
       </td>

@@ -10,8 +10,8 @@ export interface ProductResponse {
   description?: string;
   id?: number;
   owner?: string;
+  price?: number;
   rate?: number;
   shareable?: boolean;
   title?: string;
-  price?: number;
 }

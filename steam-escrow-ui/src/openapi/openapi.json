@@ -401,6 +401,48 @@
         }
       }
     },
+    "/products/sold": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "operationId": "findAllSoldProducts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseBoughtProductResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products/returned": {
       "get": {
         "tags": [
@@ -619,10 +661,15 @@
           },
           "shareable": {
             "type": "boolean"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
           }
         },
         "required": [
           "description",
+          "price",
           "title"
         ]
       },
@@ -747,6 +794,10 @@
           "owner": {
             "type": "string"
           },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
           "cover": {
             "type": "string",
             "format": "byte"
@@ -779,9 +830,19 @@
           "title": {
             "type": "string"
           },
+          "sellerName": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
           "rate": {
             "type": "number",
             "format": "double"
+          },
+          "purchaseApproved": {
+            "type": "boolean"
           },
           "returned": {
             "type": "boolean"

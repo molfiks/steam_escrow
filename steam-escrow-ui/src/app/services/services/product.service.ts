@@ -21,6 +21,8 @@ import { findAllProductsByOwner } from '../fn/product/find-all-products-by-owner
 import { FindAllProductsByOwner$Params } from '../fn/product/find-all-products-by-owner';
 import { findAllReturnedProducts } from '../fn/product/find-all-returned-products';
 import { FindAllReturnedProducts$Params } from '../fn/product/find-all-returned-products';
+import { findAllSoldProducts } from '../fn/product/find-all-sold-products';
+import { FindAllSoldProducts$Params } from '../fn/product/find-all-sold-products';
 import { findProductById } from '../fn/product/find-product-by-id';
 import { FindProductById$Params } from '../fn/product/find-product-by-id';
 import { PageResponseBoughtProductResponse } from '../models/page-response-bought-product-response';
@@ -244,6 +246,31 @@ export class ProductService extends BaseService {
   findProductById(params: FindProductById$Params, context?: HttpContext): Observable<ProductResponse> {
     return this.findProductById$Response(params, context).pipe(
       map((r: StrictHttpResponse<ProductResponse>): ProductResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `findAllSoldProducts()` */
+  static readonly FindAllSoldProductsPath = '/products/sold';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllSoldProducts()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllSoldProducts$Response(params?: FindAllSoldProducts$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBoughtProductResponse>> {
+    return findAllSoldProducts(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllSoldProducts$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllSoldProducts(params?: FindAllSoldProducts$Params, context?: HttpContext): Observable<PageResponseBoughtProductResponse> {
+    return this.findAllSoldProducts$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageResponseBoughtProductResponse>): PageResponseBoughtProductResponse => r.body)
     );
   }
 

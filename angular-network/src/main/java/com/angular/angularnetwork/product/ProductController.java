@@ -71,6 +71,15 @@ public class ProductController {
         return ResponseEntity.ok(service.findAllReturnedProducts(page, size, connectedUser));
     }
 
+    @GetMapping("/sold")
+    public ResponseEntity<PageResponse<BoughtProductResponse>> findAllSoldProducts(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            Authentication connectedUser
+    ){
+        return ResponseEntity.ok(service.findAllSoldProducts(page, size, connectedUser));
+    }
+
     @PatchMapping("/shareable/{product-id}")
     public ResponseEntity<Integer> updateShareableStatus(
             @PathVariable("product-id") Integer productId,

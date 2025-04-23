@@ -5,7 +5,7 @@
 export interface ProductRequest {
   description: string;
   id?: number;
+  price?: number;
   shareable?: boolean;
   title: string;
-  price?: number;
 }

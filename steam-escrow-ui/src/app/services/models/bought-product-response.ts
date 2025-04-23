@@ -4,10 +4,11 @@
 
 export interface BoughtProductResponse {
   id?: number;
+  price?: number;
+  purchaseApproved?: boolean;
   rate?: number;
   returnApproved?: boolean;
   returned?: boolean;
-  title?: string;
-  price?: number;
   sellerName?: string;
+  title?: string;
 }

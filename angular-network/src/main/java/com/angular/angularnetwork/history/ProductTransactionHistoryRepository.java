@@ -1,5 +1,6 @@
 package com.angular.angularnetwork.history;
 
+import com.angular.angularnetwork.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,14 @@ public interface ProductTransactionHistoryRepository extends JpaRepository<Produ
             WHERE history.product.owner.id = :userId
             """)
     Page<ProductTransactionHistory> findAllReturnedProducts(Pageable pageable, Integer userId);
+
+    @Query("""
+           SELECT history
+           FROM ProductTransactionHistory history
+           WHERE history.product.owner.id = :userId
+           AND history.product.bought = true
+           """)
+    Page<ProductTransactionHistory> findAllSoldProducts(Pageable pageable, Integer userId);
 
     @Query("""
             SELECT
