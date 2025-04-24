@@ -216,11 +216,11 @@ public class ProductService {
 
         buyer.setBalance(buyer.getBalance() - product.getPrice());
         seller.setBalance(seller.getBalance() + product.getPrice());
-        userRepository.save(buyer);
         // Mark the product as bought and set the buyer
-        //denedim çalışıyo dokunma yippie(yamuk çalışıyomuş satın alanın para eksilmedi amk)
+        // denedim çalışıyo dokunma yippie(yamuk çalışıyomuş satın alanın para eksilmedi amk)
         product.setBought(true);
         product.setBoughtBy(buyer);
+        userRepository.save(buyer);
         productRepository.save(product);
 
         productTransactionHistory.setPurchaseApproved(true);

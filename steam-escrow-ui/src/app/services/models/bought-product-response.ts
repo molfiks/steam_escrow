@@ -10,5 +10,6 @@ export interface BoughtProductResponse {
   returnApproved?: boolean;
   returned?: boolean;
   sellerName?: string;
+  buyerName?: string;
   title?: string;
 }

@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PageResponseBoughtProductResponse} from '../../../../services/models/page-response-bought-product-response';
-import {FeedbackRequest} from '../../../../services/models/feedback-request';
-import {BoughtProductResponse} from '../../../../services/models/bought-product-response';
 import {ProductService} from '../../../../services/services/product.service';
-import {FeedbackService} from '../../../../services/services/feedback.service';
+
 
 @Component({
   selector: 'app-my-sold-products',

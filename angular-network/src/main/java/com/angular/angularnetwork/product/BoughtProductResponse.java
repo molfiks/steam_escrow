@@ -13,6 +13,7 @@ public class BoughtProductResponse {
     private Integer id;
     private String title;
     private String sellerName;
+    private String buyerName;
     private float price;
     private double rate;
     private boolean purchaseApproved;
