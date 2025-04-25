@@ -6,35 +6,43 @@ import {MyProductsComponent} from './pages/my-products/my-products.component';
 import {ManageProductComponent} from './pages/manage-product/manage-product.component';
 import {PurchasedProductsListComponent} from './pages/purchased-products-list/purchased-products-list.component';
 import {MySoldProductsComponent} from './pages/my-sold-products/my-sold-products.component';
+import {authGuard} from '../../services/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [authGuard],
     children:[
       {
         path: '',
-        component: ProductListComponent
+        component: ProductListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-products',
-        component: MyProductsComponent
+        component: MyProductsComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'manage',
-        component: ManageProductComponent
+        component: ManageProductComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'manage/:productId',
-        component: ManageProductComponent
+        component: ManageProductComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-purchased-products',
-        component: PurchasedProductsListComponent
+        component: PurchasedProductsListComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'my-sold-products',
-        component: MySoldProductsComponent
+        component: MySoldProductsComponent,
+        canActivate: [authGuard]
       }
     ]
   }
