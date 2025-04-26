@@ -1,9 +1,9 @@
 services:
   postgres:
-    container_name: postgres-sql-nerwork
+    container_name: postgres-sql-network
     image: postgres
     environment:
-      POSTGRES_USER: username
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: deneme_network
@@ -20,7 +20,24 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
-
+  steamescrow-api:
+    container_name: steamescrow-api
+    image: deneme/deneme:1.0.2
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+  steamescrow-ui:
+    container_name: steamescrow-ui
+    image: deneme/deneme-ui:1.0.0
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - steamescrow-api
 networks:
   spring-demo:
     driver: bridge
