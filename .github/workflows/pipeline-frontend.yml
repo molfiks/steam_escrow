@@ -50,14 +50,14 @@ jobs:
     needs: [ build-image ]
     steps:
       - name: Create deployment folder
-        run: ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }} "mkdir -p ci-cd"
+        run: ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }}:ci-cd/docker-compose.yml
+        run: scp docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
 
       - name: Set ENV variable and deploy
         run: |
-          ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }}<<EOF
+          ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}<<EOF
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d

@@ -25,7 +25,7 @@ import {ApiModule} from './services/api.module';
     HttpClientModule,
     FormsModule,
     CodeInputModule,
-    ApiModule.forRoot({rootUrl: 'http://4.178.105.89:8088/api/v1'})
+    ApiModule.forRoot({rootUrl: 'http://18.185.120.158:8088/api/v1'})
   ],
   providers: [
     HttpClient,
