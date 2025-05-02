@@ -122,17 +122,24 @@ jobs:
   deploy:
     name: Deploy Backend
     runs-on: self-hosted
-    needs: [build-image]
+    needs: [ build-image ]
     steps:
+      - name: Set up SSH key for EC2
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.AMAZON_AWS_EC2_IP }} >> ~/.ssh/known_hosts
+
       - name: Create deployment folder
-        run: ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
+        run: ssh -i ~/.ssh/id_rsa ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
+        run: scp -i ~/.ssh/id_rsa docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
 
       - name: Set ENV variable and deploy
         run: |
-          ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}<<EOF
+          ssh -i ~/.ssh/id_rsa ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}<<EOF
           export EMAIL_HOST_NAME=${{secrets.EMAIL_HOST_NAME}}
           export EMAIL_USER_NAME=${{secrets.EMAIL_USER_NAME}}
           export EMAIL_PASSWORD=${{secrets.EMAIL_PASSWORD}}
