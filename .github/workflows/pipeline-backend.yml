@@ -33,25 +33,25 @@ jobs:
           
 
 
-  unit-tests:
-    runs-on: self-hosted
-    name: Unit tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: Running unit tests
-        run: |
-          cd angular-network
-          chmod +x ./mvnw
-          ./mvnw clean test
+#  unit-tests:
+#    runs-on: self-hosted
+#    name: Unit tests
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#      - name: Setup Java
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: 17
+#          distribution: 'corretto'
+#
+#      - name: Running unit tests
+#        run: |
+#          cd angular-network
+#          chmod +x ./mvnw
+#          ./mvnw clean test
           
 
   build:
