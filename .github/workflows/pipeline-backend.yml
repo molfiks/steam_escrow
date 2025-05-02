@@ -124,22 +124,25 @@ jobs:
     runs-on: self-hosted
     needs: [ build-image ]
     steps:
-      - name: Set up SSH key for EC2
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa ${{ secrets.AMAZON_AWS_EC2_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.AMAZON_AWS_EC2_IP }} >> ~/.ssh/known_hosts
+
+      - name: Test SSH Connection
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "echo SSH connection successful"
 
       - name: Create deployment folder
-        run: ssh -i ~/.ssh/id_rsa ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
+        run: ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
-        run: scp -i ~/.ssh/id_rsa docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
+        run: scp docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
 
-      - name: Set ENV variable and deploy
+      - name: Set ENV variables and deploy
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}<<EOF
+          ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} <<EOF
           export EMAIL_HOST_NAME=${{secrets.EMAIL_HOST_NAME}}
           export EMAIL_USER_NAME=${{secrets.EMAIL_USER_NAME}}
           export EMAIL_PASSWORD=${{secrets.EMAIL_PASSWORD}}
