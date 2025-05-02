@@ -138,14 +138,14 @@ jobs:
         run: ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
+        run: scp -oStrictHostKeyChecking=no docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
 
       - name: Set ENV variables and deploy
         run: |
           ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} <<EOF
-          export EMAIL_HOST_NAME=${{secrets.EMAIL_HOST_NAME}}
-          export EMAIL_USER_NAME=${{secrets.EMAIL_USER_NAME}}
-          export EMAIL_PASSWORD=${{secrets.EMAIL_PASSWORD}}
+          export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
+          export EMAIL_USER_NAME=${{ secrets.EMAIL_USER_NAME }}
+          export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d
