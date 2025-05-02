@@ -28,6 +28,7 @@ jobs:
       - name: Compile project
         run: |
           cd angular-network
+          chmod +x ./mvnw
           ./mvnw clean compile
           
 
@@ -49,6 +50,7 @@ jobs:
       - name: Running unit tests
         run: |
           cd angular-network
+          chmod +x ./mvnw
           ./mvnw clean test
           
 
@@ -70,6 +72,7 @@ jobs:
       - name: Build project
         run: |
           cd angular-network
+          chmod +x ./mvnw
           ./mvnw clean package
           
 
@@ -90,11 +93,13 @@ jobs:
       - name: Build project
         run: |
           cd angular-network
+          chmod +x ./mvnw
           ./mvnw clean package
       - name: Extract project version
         id: extract_version
         run: |
           cd angular-network
+          chmod +x ./mvnw
           echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
