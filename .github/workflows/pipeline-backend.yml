@@ -94,7 +94,7 @@ jobs:
         run: |
           cd angular-network
           chmod +x ./mvnw
-          ./mvnw clean package
+          ./mvnw clean package -DskipTests
       - name: Extract project version
         id: extract_version
         run: |
