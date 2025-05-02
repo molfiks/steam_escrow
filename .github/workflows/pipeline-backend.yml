@@ -115,7 +115,7 @@ jobs:
           file: docker/backend/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-ui:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-ui:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-api:latest
 
             
 
