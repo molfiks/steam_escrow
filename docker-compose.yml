@@ -22,7 +22,7 @@ services:
       - 1025:1025
   steamescrow-api:
     container_name: steamescrow-api
-    image: deneme/deneme:1.0.2
+    image: molfiks/steamescrow-api:1.0.0
     ports:
       - 8088:8088
     networks:
@@ -31,7 +31,7 @@ services:
       - postgres
   steamescrow-ui:
     container_name: steamescrow-ui
-    image: deneme/deneme-ui:1.0.0
+    image: molfiks/steamescrow-ui:1.0.0
     ports:
       - 8080:80
     networks:
@@ -45,3 +45,5 @@ networks:
 volumes:
   postgres:
     driver: local
+
+# test

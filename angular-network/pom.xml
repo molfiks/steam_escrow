@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.angular</groupId>
 	<artifactId>angular-network</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.0</version>
 	<name>angular-network-api</name>
 	<description>angular deneme</description>
 	<url/>

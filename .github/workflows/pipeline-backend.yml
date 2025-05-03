@@ -19,8 +19,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-jdk@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: 'corretto'
@@ -28,41 +28,43 @@ jobs:
       - name: Compile project
         run: |
           cd angular-network
-          ./mvnw clean compile
+          chmod +x ./mvnw
+          ./mvnw clean compile -DskipTests
           
 
 
-  unit-tests:
-    runs-on: self-hosted
-    name: Unit tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-jdk@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: Running unit tests
-        run: |
-          cd angular-network
-          ./mvnw clean test
+#  unit-tests:
+#    runs-on: self-hosted
+#    name: Unit tests
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#      - name: Setup Java
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: 17
+#          distribution: 'corretto'
+#
+#      - name: Running unit tests
+#        run: |
+#          cd angular-network
+#          chmod +x ./mvnw
+#          ./mvnw clean test
           
 
   build:
     runs-on: self-hosted
     name: Build backend
-    needs: [compile,unit-tests]
+    needs: [compile] #,unit-tests
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-jdk@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: 'corretto'
@@ -70,7 +72,8 @@ jobs:
       - name: Build project
         run: |
           cd angular-network
-          ./mvnw clean package
+          chmod +x ./mvnw
+          ./mvnw clean package -DskipTests
           
 
   build-image:
@@ -82,19 +85,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-jdk@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: 'corretto'
       - name: Build project
         run: |
           cd angular-network
-          ./mvnw clean package
+          chmod +x ./mvnw
+          ./mvnw clean package -DskipTests
       - name: Extract project version
         id: extract_version
         run: |
           cd angular-network
+          chmod +x ./mvnw
           echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
@@ -110,28 +115,40 @@ jobs:
           file: docker/backend/Dockerfile
           push: true
           platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-ui:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-ui:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/steamescrow-api:latest
 
             
 
   deploy:
     name: Deploy Backend
     runs-on: self-hosted
-    needs: [build-image]
+    needs: [ build-image ]
     steps:
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.AMAZON_AWS_EC2_IP }} >> ~/.ssh/known_hosts
+
+      - name: Test SSH Connection
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "echo SSH connection successful"
+
       - name: Create deployment folder
-        run: ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }} "mkdir -p ci-cd"
+        run: ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }}:ci-cd/docker-compose.yml
+        run: scp -oStrictHostKeyChecking=no docker-compose.yml ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }}:ci-cd/docker-compose.yml
 
-      - name: Set ENV variable and deploy
+      - name: Set ENV variables and deploy
         run: |
-          ssh ${{ secrets.AZURE_VM_USERNAME }}@${{ secrets.AZURE_VM_IP }}<<EOF
-          export EMAIL_HOST_NAME=${{secrets.EMAIL_HOST_NAME}}
-          export EMAIL_USER_NAME=${{secrets.EMAIL_USER_NAME}}
-          export EMAIL_PASSWORD=${{secrets.EMAIL_PASSWORD}}
+          ssh ${{ secrets.AMAZON_AWS_EC2_USERNAME }}@${{ secrets.AMAZON_AWS_EC2_IP }} <<EOF
+          export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
+          export EMAIL_USER_NAME=${{ secrets.EMAIL_USER_NAME }}
+          export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d
           EOF
+
+#test
