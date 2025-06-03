@@ -5,7 +5,24 @@
   [class.border-danger]="product.archived"
   [class.border-info]="product.bought"
 >
-  <img height="200 " [src]="productCover" class="card-img-top" alt="...">
+  <!-- Image gallery with scrollable functionality -->
+  <div class="image-gallery position-relative">
+    <div class="image-container d-flex overflow-auto">
+      <!-- Show cover image first -->
+      <img *ngIf="productCover" height="200" [src]="productCover" class="gallery-img flex-shrink-0" alt="Product cover">
+      <!-- Show additional images if available -->
+      <img *ngFor="let imagePath of product.imagePaths" height="200" [src]="'data:image/jpg;base64,' + imagePath" class="gallery-img flex-shrink-0" alt="Product image">
+    </div>
+    <!-- Navigation arrows if multiple images -->
+    <div *ngIf="product.imagePaths && product.imagePaths.length > 0" class="gallery-controls">
+      <button class="btn btn-sm btn-light rounded-circle gallery-control-left" (click)="scrollGalleryLeft()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="btn btn-sm btn-light rounded-circle gallery-control-right" (click)="scrollGalleryRight()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
   <div class="card-body overflow-scroll ">
     <h5 class="card-title fs-6 text-nowrap fw-bold mb-1"><i class="fa-solid fa-shopping-cart"></i>&nbsp;{{product.title}}</h5>
     <div class="d-flex justify-content-between align-items-center mb-1">

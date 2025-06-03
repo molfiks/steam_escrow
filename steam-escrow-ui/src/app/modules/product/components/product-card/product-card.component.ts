@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ProductResponse} from '../../../../services/models/product-response';
 
 @Component({
@@ -11,6 +11,8 @@ export class ProductCardComponent {
   private _product: ProductResponse = {};
   private _manage = false;
   private _productCover: string | undefined;
+
+  @ViewChild('imageContainer') imageContainer: ElementRef | undefined;
 
   get product(): ProductResponse {
     return this._product;
@@ -71,5 +73,20 @@ export class ProductCardComponent {
 
   onArchive() {
     this.archive.emit(this._product);
+  }
+
+  // Methods for scrolling the image gallery
+  scrollGalleryLeft() {
+    const container = document.querySelector('.image-container') as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: -317, behavior: 'smooth' });
+    }
+  }
+
+  scrollGalleryRight() {
+    const container = document.querySelector('.image-container') as HTMLElement;
+    if (container) {
+      container.scrollBy({ left: 317, behavior: 'smooth' });
+    }
   }
 }

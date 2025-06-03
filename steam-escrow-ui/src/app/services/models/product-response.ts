@@ -9,6 +9,7 @@ export interface ProductResponse {
   cover?: string;
   description?: string;
   id?: number;
+  imagePaths?: Array<string>;
   owner?: string;
   price?: number;
   rate?: number;

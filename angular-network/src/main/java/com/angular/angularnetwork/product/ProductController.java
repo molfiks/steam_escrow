@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("products")
@@ -144,5 +146,22 @@ public class ProductController {
     ){
         service.uploadProductCoverPicture(file, connectedUser, productId);
         return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping(value = "/images/{product-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadProductImages(
+            @PathVariable("product-id") Integer productId,
+            @RequestPart("files") List<MultipartFile> files,
+            Authentication connectedUser
+    ){
+        service.uploadProductImages(files, connectedUser, productId);
+        return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/images/{product-id}")
+    public ResponseEntity<List<byte[]>> getProductImages(
+            @PathVariable("product-id") Integer productId
+    ){
+        return ResponseEntity.ok(service.getProductImagePaths(productId));
     }
 }

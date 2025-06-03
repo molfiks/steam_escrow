@@ -6,15 +6,43 @@
   </div>
   <div class="d-flex gap-2">
     <div class="col-3">
-      <img class="rounded-1" width="100%" height="100%" [src]="selectedPicture" alt="">
-      <div class="mt-2">
-        <input
-          (change)="onFileSelected($event)"
-          class="form-control"
-          type="file"
-          id="formFile"
-          accept="image/*"
-        >
+      <!-- Cover image preview -->
+      <div class="mb-3">
+        <h5>Cover Image</h5>
+        <img class="rounded-1 w-100" height="200" [src]="selectedPicture" alt="">
+        <div class="mt-2">
+          <input
+            (change)="onCoverFileSelected($event)"
+            class="form-control"
+            type="file"
+            id="coverFile"
+            accept="image/*"
+          >
+        </div>
+      </div>
+
+      <!-- Additional images section -->
+      <div class="mt-3">
+        <h5>Additional Images</h5>
+        <div class="additional-images-preview mb-2">
+          <div *ngIf="additionalImages.length === 0" class="text-muted small">No additional images</div>
+          <div *ngFor="let img of additionalImages; let i = index" class="position-relative mb-2">
+            <img [src]="img.preview" class="img-thumbnail" style="height: 100px; width: 100%;" alt="Additional image">
+            <button (click)="removeAdditionalImage(i)" class="btn btn-sm btn-danger position-absolute top-0 end-0">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input
+            (change)="onAdditionalImagesSelected($event)"
+            class="form-control"
+            type="file"
+            id="additionalImages"
+            accept="image/*"
+            multiple
+          >
+        </div>
       </div>
     </div>
     <div class="col-9">

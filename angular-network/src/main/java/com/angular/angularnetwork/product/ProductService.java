@@ -4,11 +4,13 @@ package com.angular.angularnetwork.product;
 import com.angular.angularnetwork.common.PageResponse;
 import com.angular.angularnetwork.exception.OperationNotPermittedException;
 import com.angular.angularnetwork.file.FileStorageService;
+import com.angular.angularnetwork.file.FileUtils;
 import com.angular.angularnetwork.history.ProductTransactionHistory;
 import com.angular.angularnetwork.history.ProductTransactionHistoryRepository;
 import com.angular.angularnetwork.user.User;
 import com.angular.angularnetwork.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -217,7 +219,7 @@ public class ProductService {
         buyer.setBalance(buyer.getBalance() - product.getPrice());
         seller.setBalance(seller.getBalance() + product.getPrice());
         // Mark the product as bought and set the buyer
-        // denedim çalışıyo dokunma yippie(yamuk çalışıyomuş satın alanın para eksilmedi amk)
+        // denedim çalışıyo dokunma yippie
         product.setBought(true);
         product.setBoughtBy(buyer);
         userRepository.save(buyer);
@@ -286,4 +288,29 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    @Transactional
+    public void uploadProductImages(List<MultipartFile> files, Authentication connectedUser, Integer productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("No product found with the ID:: "+productId));
+        User user = ((User) connectedUser.getPrincipal());
+        for (MultipartFile file : files) {
+            String imagePath = fileStorageService.saveFile(file, user.getId());
+            ProductImage image = ProductImage.builder()
+                    .product(product)
+                    .imagePath(imagePath)
+                    .build();
+            product.getImages().add(image);
+        }
+        productRepository.save(product);
+    }
+
+    public List<byte[]> getProductImagePaths(Integer productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("No product found with the ID:: "+productId));
+        if (product.getImages() == null) return List.of();
+        return product.getImages().stream()
+                .map(ProductImage::getImagePath)
+                .map(FileUtils::readFileFromLocation)
+                .toList();
+    }
 }
