@@ -25,6 +25,8 @@ import { findAllSoldProducts } from '../fn/product/find-all-sold-products';
 import { FindAllSoldProducts$Params } from '../fn/product/find-all-sold-products';
 import { findProductById } from '../fn/product/find-product-by-id';
 import { FindProductById$Params } from '../fn/product/find-product-by-id';
+import { getProductImages } from '../fn/product/get-product-images';
+import { GetProductImages$Params } from '../fn/product/get-product-images';
 import { PageResponseBoughtProductResponse } from '../models/page-response-bought-product-response';
 import { PageResponseProductResponse } from '../models/page-response-product-response';
 import { ProductResponse } from '../models/product-response';
@@ -38,6 +40,8 @@ import { updateShareableStatus } from '../fn/product/update-shareable-status';
 import { UpdateShareableStatus$Params } from '../fn/product/update-shareable-status';
 import { uploadProductCoverPicture } from '../fn/product/upload-product-cover-picture';
 import { UploadProductCoverPicture$Params } from '../fn/product/upload-product-cover-picture';
+import { uploadProductImages } from '../fn/product/upload-product-images';
+import { UploadProductImages$Params } from '../fn/product/upload-product-images';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService extends BaseService {
@@ -117,6 +121,60 @@ export class ProductService extends BaseService {
   purchaseProduct(params: PurchaseProduct$Params, context?: HttpContext): Observable<number> {
     return this.purchaseProduct$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `getProductImages()` */
+  static readonly GetProductImagesPath = '/products/images/{product-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getProductImages()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProductImages$Response(params: GetProductImages$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<string>>> {
+    return getProductImages(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getProductImages$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProductImages(params: GetProductImages$Params, context?: HttpContext): Observable<Array<string>> {
+    return this.getProductImages$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<string>>): Array<string> => r.body)
+    );
+  }
+
+  /** Path part for operation `uploadProductImages()` */
+  static readonly UploadProductImagesPath = '/products/images/{product-id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `uploadProductImages()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProductImages$Response(params: UploadProductImages$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return uploadProductImages(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `uploadProductImages$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  uploadProductImages(params: UploadProductImages$Params, context?: HttpContext): Observable<{
+}> {
+    return this.uploadProductImages$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
     );
   }
 

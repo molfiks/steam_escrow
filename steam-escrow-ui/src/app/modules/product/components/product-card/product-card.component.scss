@@ -9,3 +9,53 @@ div {
 i {
   cursor: pointer;
 }
+
+
+/* Image gallery styles */
+.image-gallery {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+.gallery-img {
+  flex: 0 0 auto;
+  width: 100%;
+  object-fit: cover;
+}
+
+.gallery-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+.gallery-control-left,
+.gallery-control-right {
+  pointer-events: auto;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}

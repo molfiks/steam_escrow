@@ -29,6 +29,10 @@ public class ProductMapper {
                 .owner(product.getOwner().fullName())
                 .price(product.getPrice())
                 .cover(FileUtils.readFileFromLocation(product.getCover()))
+                .imagePaths(product.getImages() != null ? product.getImages().stream()
+                        .map(ProductImage::getImagePath)
+                        .map(FileUtils::readFileFromLocation)
+                        .toList() : null)
                 .bought(product.isBought())
                 .boughtBy(product.getBoughtBy() != null ? product.getBoughtBy().fullName() : null)
                 .build();

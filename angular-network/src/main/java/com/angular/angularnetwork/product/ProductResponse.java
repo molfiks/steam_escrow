@@ -3,6 +3,8 @@ package com.angular.angularnetwork.product;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,4 +23,5 @@ public class ProductResponse {
     private boolean shareable;
     private boolean bought;
     private String boughtBy;
+    private List<byte[]> imagePaths;
 }

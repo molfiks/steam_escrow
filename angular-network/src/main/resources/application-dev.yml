@@ -14,10 +14,14 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
-    host: ${EMAIL_HOST_NAME}
+    host: ${EMAIL_HOST_NAME:localhost}
+    username: ${EMAIL_USER_NAME:test}
+    password: ${EMAIL_PASSWORD:test}
     port: 465
-    username: ${EMAIL_USER_NAME}
-    password: ${EMAIL_PASSWORD}
+    # host: ${EMAIL_HOST_NAME}
+    # port: 465
+    # username: ${EMAIL_USER_NAME}
+    # password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -38,7 +42,7 @@ application:
     frontend:
       activation-url: http://localhost:4200/activate-account
   cors:
-    origins: http://localhost:4200","http://localhost:8080,http:/35.156.82.130:8088,http:/35.156.82.130:8080
+    origins: http://localhost:4200,http://localhost:8080,http:/35.156.82.130:8088,http:/35.156.82.130:8080
   file:
     upload:
       photos:
