@@ -4,4 +4,5 @@
 
 export { ProductService } from './services/product.service';
 export { FeedbackService } from './services/feedback.service';
+export { FavoritesService } from './services/favorites.service';
 export { AuthenticationService } from './services/authentication.service';

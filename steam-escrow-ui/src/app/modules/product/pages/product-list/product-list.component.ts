@@ -3,6 +3,7 @@ import {ProductService} from '../../../../services/services/product.service';
 import {Router} from '@angular/router';
 import {PageResponseProductResponse} from '../../../../services/models/page-response-product-response';
 import { ProductResponse } from '../../../../services/models/product-response';
+import {FavoritesService} from '../../../../services/services/favorites.service';
 
 @Component({
   selector: 'app-product-list',
@@ -20,7 +21,8 @@ export class ProductListComponent implements OnInit{
 
   constructor(
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private favoritesService: FavoritesService
   ) {
   }
 
@@ -84,4 +86,11 @@ export class ProductListComponent implements OnInit{
       }
     })
   }
+
+  handleAddToFavorites(product: ProductResponse) {
+    this.message = '';
+    this.level = 'success';
+    this.message = 'Product successfully added to favorites';
+  }
+
 }

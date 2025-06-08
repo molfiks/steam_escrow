@@ -1,5 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ProductResponse} from '../../../../services/models/product-response';
+import {FavoritesService} from '../../../../services/services/favorites.service';
+import {FavoritesRequest} from '../../../../services/models/favorites-request';
 
 @Component({
   selector: 'app-product-card',
@@ -44,10 +46,14 @@ export class ProductCardComponent {
 
   @Output() private share: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
   @Output() private archive: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
-  @Output() private addToWaitingList: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
   @Output() private purchase: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
   @Output() private edit: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
   @Output() private details: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
+  @Output() private addToFavorites: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
+  @Input() isFavoritePage: boolean = false;
+  @Output() removeFromFavorites: EventEmitter<ProductResponse> = new EventEmitter<ProductResponse>();
+
+  constructor(private favoritesService: FavoritesService) {}
 
 
 
@@ -59,8 +65,33 @@ export class ProductCardComponent {
     this.purchase.emit(this._product);
   }
 
-  onAddtoWaitingList() {
-    this.addToWaitingList.emit(this._product);
+  onAddtoFavoritesList() {
+    if (this.isFavoritePage) {
+      this.removeFromFavorites.emit(this._product);
+    } else {
+      this.onAddToFavorites();
+    }
+  }
+
+  onAddToFavorites() {
+    // Add to favorites functionality
+    if (this._product.id) {
+      const request: FavoritesRequest = {
+        productId: this._product.id
+      };
+
+      this.favoritesService.addToFavorites({
+        body: request
+      }).subscribe({
+        next: () => {
+          console.log('Product added to favorites successfully');
+          this.addToFavorites.emit(this._product);
+        },
+        error: (error) => {
+          console.error('Error adding product to favorites:', error);
+        }
+      });
+    }
   }
 
   onEdit() {

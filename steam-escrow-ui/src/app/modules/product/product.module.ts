@@ -12,6 +12,7 @@ import { ManageProductComponent } from './pages/manage-product/manage-product.co
 import {FormsModule} from '@angular/forms';
 import { PurchasedProductsListComponent } from './pages/purchased-products-list/purchased-products-list.component';
 import { MySoldProductsComponent } from './pages/my-sold-products/my-sold-products.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MySoldProductsComponent } from './pages/my-sold-products/my-sold-produc
     MyProductsComponent,
     ManageProductComponent,
     PurchasedProductsListComponent,
-    MySoldProductsComponent
+    MySoldProductsComponent,
+    FavoritesComponent
   ],
   imports: [
     CommonModule,

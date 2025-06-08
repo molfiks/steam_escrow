@@ -7,6 +7,7 @@ import {ManageProductComponent} from './pages/manage-product/manage-product.comp
 import {PurchasedProductsListComponent} from './pages/purchased-products-list/purchased-products-list.component';
 import {MySoldProductsComponent} from './pages/my-sold-products/my-sold-products.component';
 import {authGuard} from '../../services/guard/auth.guard';
+import {FavoritesComponent} from './pages/favorites/favorites.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,11 @@ const routes: Routes = [
       {
         path: 'my-sold-products',
         component: MySoldProductsComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'favorites',
+        component: FavoritesComponent,
         canActivate: [authGuard]
       }
     ]

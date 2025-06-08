@@ -8,6 +8,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { ProductService } from './services/product.service';
 import { FeedbackService } from './services/feedback.service';
+import { FavoritesService } from './services/favorites.service';
 import { AuthenticationService } from './services/authentication.service';
 
 /**
@@ -20,6 +21,7 @@ import { AuthenticationService } from './services/authentication.service';
   providers: [
     ProductService,
     FeedbackService,
+    FavoritesService,
     AuthenticationService,
     ApiConfiguration
   ],

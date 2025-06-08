@@ -5,9 +5,12 @@
 export { AuthenticationRequest } from './models/authentication-request';
 export { AuthenticationResponse } from './models/authentication-response';
 export { BoughtProductResponse } from './models/bought-product-response';
+export { FavoritesRequest } from './models/favorites-request';
+export { FavoritesResponse } from './models/favorites-response';
 export { FeedbackRequest } from './models/feedback-request';
 export { FeedbackResponse } from './models/feedback-response';
 export { PageResponseBoughtProductResponse } from './models/page-response-bought-product-response';
+export { PageResponseFavoritesResponse } from './models/page-response-favorites-response';
 export { PageResponseFeedbackResponse } from './models/page-response-feedback-response';
 export { PageResponseProductResponse } from './models/page-response-product-response';
 export { ProductRequest } from './models/product-request';
